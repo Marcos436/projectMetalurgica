@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install HTMLHint
+      run: sudo npm install -g htmlhint
+
+    - name: Install Stylelint
+      run: sudo npm install -g stylelint stylelint-config-standard
+
+    - name: Install ESLint
+      run: sudo npm install -g eslint
+
+    - name: Lint HTML
+      run: htmlhint "**/*.html"
+
+    - name: Lint CSS
+      run: stylelint "**/*.css"
+
+    - name: Lint JavaScript
+      run: eslint "**/*.js"
+
+    - name: Notificação Slack
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+
