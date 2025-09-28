@@ -9,3 +9,5 @@ esse projeto visa a colaboração entre amigos estudantes.
 <!-- Security scan triggered at 2025-09-09 05:56:58 -->
 
 <!-- Security scan triggered at 2025-09-09 05:56:59 -->
+
+<!-- Security scan triggered at 2025-09-28 16:07:04 -->
